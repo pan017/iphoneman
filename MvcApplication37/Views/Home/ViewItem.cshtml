@@ -1,0 +1,36 @@
+﻿@model MvcApplication37.Models.Product
+
+@{
+    ViewBag.Title = Model.Manufaturer +" "+  Model.PhoneModel;
+}
+
+    <div class="row">
+        <div class="col-md-8"><h2>@ViewBag.Title</h2></div>
+        <div class="col-md-2"><h2>@Model.Price бел. руб</h2></div>
+    </div>
+<p style="text-align:center;">
+    <img src="@Model.PhotoUrl" height="500px" />
+</p>
+    <h3>Основные характеристики</h3>
+    <p>@Html.LabelFor(model => model.Type) : @Model.Type</p>
+    <p>@Html.LabelFor(model => model.Color) : @Model.Color</p>
+    <p>@Html.LabelFor(model => model.Material) : @Model.Material</p>
+    <h3>Экран</h3>
+    <p>@Html.LabelFor(model => model.ScreenTechnology) : @Model.ScreenTechnology</p>
+    <p>@Html.LabelFor(model => model.Screen) : @Model.Screen "</p>
+    <p>@Html.LabelFor(model => model.ScreenSize) : @Model.ScreenSize</p>
+    <p>@Html.LabelFor(model => model.ColoCount) : @Model.ColoCount млн.</p>
+    <h3>Начинка</h3>
+    <p>@Html.LabelFor(model => model.OS) : @Model.OS</p>
+    <p>@Html.LabelFor(model => model.OSVersion) : @Model.OSVersion</p>
+    <p>@Html.LabelFor(model => model.Processor) : @Model.Processor</p>
+    <p>@Html.LabelFor(model => model.ProcessorClockSpeed) : @Model.ProcessorClockSpeed МГц</p>
+    <p>@Html.LabelFor(model => model.RAM) : @Model.RAM MB</p>
+    <p>@Html.LabelFor(model => model.Camera) : @Model.Camera МП</p>
+    <p>@Html.LabelFor(model => model.FlasMemory) : @Model.FlasMemory GB</p>
+    <h3>Габариты</h3>
+    <p>@Html.LabelFor(model => model.Height) : @Model.Height мм.</p>
+    <p>@Html.LabelFor(model => model.Width) : @Model.Width мм.</p>
+    <p>@Html.LabelFor(model => model.Weight) : @Model.Weight гр.</p>
+
+    <input type="button" class="submit_btn" onclick="location.href='@Url.Action("AddToCart", "Cart", new { productId = Model.id })'" value="Добавить в корзину" />

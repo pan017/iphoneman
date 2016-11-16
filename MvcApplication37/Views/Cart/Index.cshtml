@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Ваша корзина";
+}
+@model MvcApplication37.Models.CartIndexViewModel
+@if (Model.Cart.Lines.Count() < 1)
+{
+    <h2>Ваша корзина пуста</h2>
+
+}
+else
+{ 
+    <h2>Ваша корзина</h2>
+  
+    <table class="tab" width="100%">
+        <thead>
+            <tr>
+                <th align="center">Кол-во</th>
+                <th align="center">Телефон</th>
+                <th align="center" class="text-right">Цена</th>
+                <th align="center" class="text-right">Общая цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.Cart.Lines)
+            {
+                <tr>
+                    <td align ="center">@line.Quantity</td>
+                    <td align="center">@line.Product.PhoneModel</td>
+                    <td align="center">@line.Product.Price.ToString("# бел. руб")</td>
+                    <td align="center">
+                        @((line.Quantity * line.Product.Price).ToString("# бел. руб"))
+                    </td>
+                </tr>
+            }
+        </tbody>
+        
+    </table>
+    <h4 align="right"><b>Итого:</b>
+                
+                    @Model.Cart.ComputeTotalValue().ToString("# бел. руб")</h4>
+<div class="text-center">
+    <input type="button" class="btn btn-success" onclick="location.href='@Url.Action("Order", "Cart")'" value="Оформить заказ" />
+
+</div>
+}

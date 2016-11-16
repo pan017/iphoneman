@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Спасибо за покупку";
+    int totalPrice = 0;
+    double totalNDS = 0;
+}
+@model List<MvcApplication37.Models.Sale>
+           <div class="print"><h2>Товарный чек</h2></div>
+<h2>Спасибо за покупку</h2>
+<p>
+    <img src="~/Content/print.png" title="Распечатать" height="25px" onclick="window.print()" alt="logo" style="position:absolute;margin-left:470px" />
+Покупатель:
+ <b>@Model[0].Client.Name</b>
+</p>
+<p>
+    Время заказа:
+<b> @DateTime.Now</b>
+</p>
+<p>
+    Телефон:
+    <b> @Model[0].Client.Phone</b>
+</p>
+<p>
+    Адрес доставки:
+    <b>  @Model[0].Client.Adres</b>
+</p>
+<p>
+    <table width="100%" class="tab">
+        <tr>
+            <th align="center"><b>Код товара</b></th>
+            <th align="center"><b>Товар</b></th>
+            <th align="center"><b>Стоимость</b></th>
+            <th align="center"><b>Стоимость с НДС</b></th>
+            <th align="center"><b>Ставка НДС</b></th>
+            <th align="center"><b>Сумма НДС в т.ч</b></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product.id</td>
+                <td>@item.Product.Manufaturer @item.Product.PhoneModel</td>
+                <td align="center">@item.Product.Price бел. руб</td>
+                <td align="center">@item.Product.Price бел. руб</td>
+                <td align="center">20%</td>
+                @{ double qq = item.Product.Price * 0.2;
+                   totalNDS += qq;
+                   
+                   
+                   }
+                <td align="center">@qq</td>
+                @{
+            totalPrice += item.Product.Price;
+                }
+            </tr>
+        }
+        <tr>
+            <td colspan="3"><b>Итого:</b></td>
+            <td>@totalPrice.ToString() бел. руб</td>
+        </tr>
+        <tr>
+            <td colspan ="3"><b>В том числе по НДС</b></td>
+            <td>@totalNDS.ToString() бел. руб</td>
+        </tr>
+    </table>
+   
+
+</p>

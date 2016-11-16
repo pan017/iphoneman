@@ -1,0 +1,160 @@
+﻿@model MvcApplication37.Models.Product
+
+@{
+    ViewBag.Title = "EditItem";
+}
+
+<h2>Редактирование товара</h2>
+<script>
+    function PreviewImages() {
+        var inputID = document.getElementById('input_clone');
+        var totalImages = inputID.files.length;
+        var imagesPerRow = 3;
+        var numRows = totalImages / imagesPerRow;
+        var row = "";
+        var cell = "";
+        var element1 = "";
+        var elementID = "";
+
+        oFReader = new FileReader();
+
+        oFReader.onload = function (oFREvent) {
+            var dataURI = oFREvent.target.result;
+            var image = document.getElementById("qwe");
+            image.src = dataURI;
+        };
+
+        oFReader.readAsDataURL(document.getElementById("input_clone").files[0]);
+
+    }
+
+    window.addEventListener("load", function () {
+        document.getElementById("input_clone").addEventListener("change", PreviewImages, false);
+    }, false);
+    //]]>
+    function f(_, b) {
+        var s = _.value + ' ' + b
+        alert(s)
+        _.value = s
+       
+    }
+</script>
+
+@using (@Html.BeginForm("EditItem", "AdminMenu", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <table align="center">
+        <tr>
+            <th colspan="2"><h3>Основное</h3></th>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Manufaturer)</td>
+            <td>@Html.TextBoxFor(model => model.Manufaturer)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.PhoneModel)</td>
+            <td>@Html.TextBoxFor(model => model.PhoneModel)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.Price)</td>
+            <td>@Html.TextBoxFor(model => model.Price, new { @onkeyup = "return proverka(this);"})</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Count)</td>
+            <td>@Html.TextBoxFor(model => model.Count, new { @onkeyup = "return proverka(this);" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Type)</td>
+            <td>@Html.TextBoxFor(model => model.Type)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Color)</td>
+            <td>@Html.DropDownListFor(model => model.Color, ViewBag.colors as SelectList) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Material)</td>
+            <td>@Html.TextBoxFor(model => model.Material)</td>
+        </tr>
+        <tr>
+            <th colspan="2"><h3>Экран</h3></th>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.ScreenTechnology)</td>
+            <td>@Html.DropDownListFor(model => model.ScreenTechnology, ViewBag.screen as SelectList)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.Screen)</td>
+            <td>@Html.TextBoxFor(model => model.Screen)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.ScreenSize)</td>
+            <td>@Html.TextBoxFor(model => model.ScreenSize)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.ColoCount)</td>
+            <td>@Html.TextBoxFor(model => model.ColoCount)</td>
+        </tr>
+        <tr>
+            <th colspan="2"><h3>Начинка</h3></th>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.OS)</td>
+            <td>@Html.DropDownListFor(model => model.OS, ViewBag.os as SelectList)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.OSVersion)</td>
+            <td>@Html.TextBoxFor(model => model.OSVersion)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Processor)</td>
+            <td>@Html.TextBoxFor(model => model.Processor)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.ProcessorClockSpeed)</td>
+            <td>@Html.TextBoxFor(model => model.ProcessorClockSpeed, new { @onkeyup = "return proverka(this);" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.RAM)</td>
+            <td>@Html.TextBoxFor(model => model.RAM)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Camera)</td>
+            <td>@Html.TextBoxFor(model => model.Camera)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.FlasMemory)</td>
+            <td>@Html.TextBoxFor(model => model.FlasMemory)</td>
+        </tr>
+        <tr>
+            <th colspan="2"><h3>Габариты</h3></th>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Width)</td>
+            <td>@Html.TextBoxFor(model => model.Width, new { @onkeyup = "return proverka(this);" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Height)</td>
+            <td>@Html.TextBoxFor(model => model.Height, new { @onkeyup = "return proverka(this);" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Weight)</td>
+            <td>@Html.TextBoxFor(model => model.Weight, new { @onkeyup = "return proverka(this);" })</td>
+        </tr>
+
+        <tr>
+            <tr>Фотография</tr>
+            <td>
+                <img src="@Model.PhotoUrl" id="qwe" width="100" height="100"><br />
+                <input type="file" id="input_clone" name="upload" /><br>
+
+            </td>
+        </tr>
+        <tr>
+            <td align="right"><input type="submit" id="submit" class="btn btn-primary" title="Сохранить" value="Сохранить" /></td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/templatemo_style.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/Content/JH3yNjB3yhk.jpg" type="image/x-icon">
+    <style type="text/css" media="print">
+    div.no_print {
+        display: none;
+    }
+        div.print {
+            display: block;
+        }
+</style> 
+    <style>
+        div.print {
+            display: none;
+        }
+        .tab th {
+            font-size: 13px;
+            font-weight: normal;
+            background: #b9c9fe;
+            border-top: 4px solid #aabcfe;
+            border-bottom: 1px solid #fff;
+            color: #039;
+            padding: 8px;
+        }
+
+            .tab td {
+                background: #e8edff;
+                border-bottom: 1px solid #fff;
+                color: #669;
+                border-top: 1px solid transparent;
+                padding: 8px;
+            }
+
+            .tab tr:hover td {
+                background: #ccddff;
+            }
+    </style>
+</head>
+<body>
+    <div id="templatemo_body_wrapper" >
+        <div id="templatemo_wrapper">
+            <div id="templatemo_header" class="no_print">
+
+                <div id="site_title">
+                    <a href="@Url.Action("Index", "Home")">
+                        <img src="~/Content/logo.png" height="70px" alt="logo" />
+                        <span>IPHONEMAN.BY</span>
+                    </a>
+                </div>
+                <div>
+                    <br />
+                    @if (Request.IsAuthenticated)
+                    {
+                        <div style="position:absolute; margin-left:300px; border:solid; border-color:white;">
+                            <p style="color:#e8954b;">&nbsp;Панель администратора</p>
+                            <input style="position:absolute; margin-left:200px;" type="button" title="Выход" onclick="location.href = '/AdminMenu/LogOff'" value="Выход" />
+
+                            <p>&nbsp;<a style="color:white;" href="/AdminMenu/Menu/">Новые заказы</a></p>
+                            <p>&nbsp;<a style="color:white;" href="/AdminMenu/AddProduct/">Добавить товар</a></p>
+                            <p>&nbsp;<a style="color:white;" href="/AdminMenu/EditProductList/">Редактировать список товаров</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        </div>
+
+                    }
+                    else
+                    {
+
+                        Html.RenderAction("Index", "AdminMenu");
+                    }
+
+                </div>
+                <div id="shopping_cart_box">
+                    <h3 style="padding-bottom:5px;">
+                        <a href="/Cart/" style="color:white;">
+
+                            Корзина<img src="~/Content/checkout-dark.png" height="70px" alt="logo" style="position:absolute; margin-top:-25px;" />
+                        </a>
+
+                    </h3>
+
+                    <p>@{Html.RenderAction("GetCartCount", "Cart");} </p>
+                </div>
+
+            </div> <!-- end of templatemo_header -->
+
+            <div id="templatemo_menu" class="no_print">
+
+                <div id="search_box">
+                    <form>
+
+                        <input type="text" id="input_field" size="10" />
+                        <input type="button" id="submit_btn" value="Поиск" title="Поиск" onclick="location.href = '/Home/Find?Query=' + document.getElementById('input_field').value">
+                    </form>
+                </div>
+
+                <ul>
+                    <li>@Html.ActionLink("Главная", "Index", "Home")</li>
+                    <li>@Html.ActionLink("О нас", "About", "Home")</li>
+                    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Клиентам", "Clients", "Home")</li>
+                </ul>
+
+            </div> <!-- end of templatemo_menu -->
+            <div id="templatemo_content_wrapper">
+
+                <div class="templatemo_sidebar_wrapper float_l no_print">
+                    <div class="templatemo_sidebar_top"></div>
+                    <div class="templatemo_sidebar">
+
+                        <div class="sidebar_box">
+
+                            <h2>Каталог</h2>
+                            <div class="sidebar_box_content">
+
+                                <ul class="categories_list">
+                                    @foreach (var item in ViewBag.Category)
+{
+    <li>
+        <a href="/Home/ViewCategory?CategoryName=@item"> @item</a>
+    </li>
+}
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+       
+
+                    </div> <div class="templatemo_sidebar_bottom"></div> <!-- end of sidebar -->
+                </div> <!-- end of templatemo_sidebar_wrapper -->
+
+                <div id="templatemo_content">
+
+                   
+
+                    <div id="content_top"></div>
+                    <div id="content_middle" >@RenderBody()</div>
+                        
+                        
+                    <div id="content_bottom"></div>
+
+                </div>
+
+
+                <div class="templatemo_sidebar_wrapper float_r no_print">
+                    <div class="templatemo_sidebar_top"></div>
+                    <div class="templatemo_sidebar">
+
+                        <div class="sidebar_box">
+
+                            <h2 class="no_print">Фильтр</h2>
+
+                            <div class="sidebar_box_content no_print">
+
+                                <div class="news_box">
+                                    <p>
+                                        <b> Цена:</b>
+                                    </p>
+                                    От <input type="text" value="0" size="2" id="ot" /> До <input type="text" size="2" value="0" id="do" />
+                                </div>
+                                @{int q = 0;
+
+                                }
+                                <div class="news_box">
+                                    <p>
+                                        <b> Цвет:</b>
+                                        @foreach (var item in ViewBag.colorList)
+                                        {
+                                            string newId = "c" + q;
+                                            q++;
+                                            <br />
+                                            <input type="checkbox" title="@item" value="@item" id="@newId" />
+                                            @item
+
+                                        }
+                                    </p>
+
+                                </div>
+                                <input type="button" value="Фильтровать" onclick="location.href = createQuery()" />
+                            </div> <!-- end of sidebar_box_content -->
+                        </div> <!-- end of sidebar_box ( news ) -->
+                        <script>
+                            function createQuery() {
+                                var Query = "/Home/Filter?Query="
+                                var len = @q
+                                Query += document.getElementById('ot').value
+                                Query += ';'
+                                Query += document.getElementById('do').value
+                                Query += ';'
+                                for (var i = 0; i < len ; i++) {
+                                    if (document.getElementById('c' + i).checked == true) {
+                                        Query += document.getElementById('c' + i).value
+                                        Query += ';'
+                                    }
+                                }
+
+                                return Query
+                            }
+                        </script>
+
+                    </div> <div class="templatemo_sidebar_bottom"></div> <!-- end of sidebar -->
+                </div> <!-- end of templatemo_sidebar_wrapper -->
+
+                <div class="cleaner"></div>
+
+            </div> <!-- end of templatemo_content_wrapper -->
+
+        </div> <!-- end of templatemo_wrapper -->
+
+        <div class="cleaner"></div>
+    </div> <!-- end of templatemo_body_wrapper -->
+
+    <div id="templatemo_footer_wrapper" class="no_print">
+
+        <div id="templatemo_footer">
+
+
+
+            Copyright © 2048 <a href="#"> IPHONEMAN.by</a> |
+            email: IPHONEMAN@gmail.com |
+            Телефон: +375 (29) 706-53-31 |
+            Адрес: Партизанский просп. 2а, Минск 220033
+            <div class="cleaner"></div>
+
+        </div> <!-- end of footer -->
+    </div> <!-- end of templatmeo_footer_wrapper -->
+</body>
+</html>

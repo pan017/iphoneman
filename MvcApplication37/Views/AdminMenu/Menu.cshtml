@@ -1,0 +1,33 @@
+﻿@model List<MvcApplication37.Models.Sale>
+
+@{
+    ViewBag.Title = "Панель администратора";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Новые заказы
+    <img src="~/Content/print.png" title="Распечатать" height="25px" onclick="window.print()" alt="logo" style="position:absolute;margin-left:320px" />
+
+    </h2>
+
+<table class="tab">
+    <tr>
+        <th>id</th>
+        <th>Товар</th>
+        <th>ФИО клиента</th>
+        <th>Адрес клиента</th>
+        <th>Телефон клиента</th>
+        <th>Action</th>
+    </tr>
+    @for (int i = Model.Count - 1; i >= 0; i--)
+    {
+        <tr>
+            <td>@Model[i].id</td>
+            <td>@Model[i].Product.Manufaturer @Model[i].Product.PhoneModel</td>
+            <td>@Model[i].Client.Name</td>
+            <td>@Model[i].Client.Adres</td>
+            <td>@Model[i].Client.Phone</td>
+            <td>@Html.ActionLink("Удалить", "DeleteSale", new {id = Model[i].id})</td>
+        </tr>
+    }
+</table>

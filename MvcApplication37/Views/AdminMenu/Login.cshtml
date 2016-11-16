@@ -1,0 +1,31 @@
+﻿@model List<MvcApplication37.Models.Sale>
+
+@{
+    ViewBag.Title = "Панель администратора";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Панель администратора</h2>
+<p>@Html.ActionLink("Добавить товар", "AddProduct", "AdminMenu")</p>
+<p>@Html.ActionLink("Редактировать список товаров", "EditProductList", "AdminMenu")</p>
+<table>
+    <tr>
+        <td>id</td>
+        <td>Товар</td>
+        <td>ФИО клиента</td>
+        <td>Адрес клиента</td>
+        <td>Телефон клиента</td>
+        <td>Action</td>
+    </tr>
+    @for (int i = Model.Count-1; i >= 0; i--)
+    {
+        <tr>
+        <td>@Model[i].id</td>
+        <td>@Model[i].Product.Manufaturer @Model[i].Product.PhoneModel</td>
+        <td>@Model[i].Client.Name</td>
+        <td>@Model[i].Client.Adres</td>
+        <td>@Model[i].Client.Phone</td>
+        <td></td>
+    </tr>
+    }
+</table>

@@ -1,0 +1,40 @@
+﻿@model List<MvcApplication37.Models.Product>
+
+@{
+    ViewBag.Title = "Поиск";
+    int a = 0;
+}
+
+<h2>Поиск</h2>
+@foreach (var item in Model)
+{
+    a++;
+    if (a % 2 != 0)
+    {
+        <div class="product_box margin_r20">
+            <p>@item.Manufaturer @item.PhoneModel</p>
+            <img src="@item.PhotoUrl" height="170px" />
+            <p class="price">Цена: <span>@item.Price бел.руб</span></p>
+            @Html.ActionLink("Подробнее", "ViewItem", "Home", new { id = item.id }, new { @class = "detail" })
+            @Html.ActionLink("В корзину", "AddToCart", "Cart", new { productId = item.id, returnUrl = Request.Url.PathAndQuery }, new { @class = "addtocard" })
+        </div>
+   
+     
+    }
+    else
+    {
+        <div class="product_box">
+            <p>@item.Manufaturer @item.PhoneModel</p>
+            <img src="@item.PhotoUrl" height="170px" />
+            <p class="price">Цена: <span>@item.Price бел.руб</span></p>
+            @Html.ActionLink("Подробнее", "ViewItem", "Home", new { id = item.id }, new { @class = "detail" })
+            @Html.ActionLink("В корзину", "AddToCart", "Cart", new { productId = item.id, returnUrl = Request.Url.PathAndQuery }, new { @class = "addtocard" })
+</div>
+     <div class="cleaner"></div>
+   
+}
+}
+@if (Model.Count % 2 != 0)
+{
+     <div class="cleaner"></div>
+}

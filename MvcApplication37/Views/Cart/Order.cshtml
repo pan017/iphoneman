@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Оформление заказа";
+}
+
+<h2>Оформление заказа</h2>
+@model MvcApplication37.Models.Client
+<h4>@Html.ValidationMessage("Error")</h4>
+@using(Html.BeginForm("Order", "Cart"))
+{
+
+               @Html.LabelFor(m => m.Name)<br />
+                @Html.TextBoxFor(m => m.Name)<br />
+               
+
+            
+                @Html.LabelFor(m => m.Phone)<br />
+                @Html.TextBoxFor(m => m.Phone)<br />
+               
+
+          @Html.LabelFor(m => m.Adres)<br />
+                @Html.TextBoxFor(m => m.Adres)<br />
+               
+     <br /> 
+    <input type="submit" />
+}

@@ -1,0 +1,11 @@
+﻿@model MvcApplication37.Models.Product
+
+@{
+    ViewBag.Title = "FindForm";
+}
+
+@using (Html.BeginForm("Find", "Home", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.Manufaturer)
+    <input type="submit" />
+}
